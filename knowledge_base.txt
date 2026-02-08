@@ -1,0 +1,52 @@
+with open("knowledge_base.txt", "r", encoding="utf-8") as f:
+    KNOWLEDGE_BASE = f.read()
+
+prompt = f"""{SYSTEM_PROMPT}
+
+WORKING_HOURS = {
+    "start": time(7, 0),   # 07:00
+    "end": time(23, 0)     # 23:00
+}
+
+def is_within_working_hours():
+    now = datetime.now().time()
+    return WORKING_HOURS["start"] <= now <= WORKING_HOURS["end"]
+
+معلومات الشركة:
+{KNOWLEDGE_BASE}
+
+التزم فقط بالمعلومات أعلاه، وإذا السؤال خارجها لا تجب واطلب تحويله لموظف.
+
+سؤال العميل:
+{user_message}
+def reply(update, context):
+    user_message = update.message.text
+
+    # 1️⃣ خارج أوقات العمل
+    if not is_within_working_hours():
+        update.message.reply_text(
+            "حياك الله 🤍\n"
+            "حالياً خارج أوقات العمل.\n"
+            "تم استلام استفسارك، وبيتم التواصل معك بأقرب وقت.\n\n"
+            "تحب أدوّن اسمك ورقمك؟"
+        )
+        return
+
+    # 2️⃣ طلب التحويل لموظف
+    handoff_keywords = ["موظف", "شكوى", "إدارة", "تحويل", "إنسان"]
+    if any(word in user_message for word in handoff_keywords):
+        update.message.reply_text(
+            "أكيد 🤍\n"
+            "بسجل استفسارك وأحوّله للفريق المختص.\n"
+            "ممكن ترسل اسمك ورقمك؟"
+        )
+        return
+
+    # 3️⃣ الرد الذكي (Ollama)
+    # ← هنا يكمّل الكود الحالي عندك لإرسال الطلب للموديل
+"""
+
+A R K هي شركة كويتية متخصصة بالقهوة والشاي المختص.
+الموقع الإلكتروني: www.ark.com.kw
+العنوان: 33 Street, Building 367, Block 1, 70070 Rai, Kuwait
+الأقسام: Café – Roasters – Tea

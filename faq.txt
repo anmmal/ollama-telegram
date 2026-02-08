@@ -1,0 +1,18 @@
+import json
+import re
+from pathlib import Path
+
+[
+  {
+    "q": "وين موقعكم؟",
+    "a": "عنواننا: 33 Street, Building 367, Block 1, 70070 Rai, Kuwait."
+  },
+  {
+    "q": "شنو موقعكم؟",
+    "a": "موقعنا: www.ark.com.kw"
+  },
+  {
+    "q": "شنو تبيعون؟",
+    "a": "A R K متخصصين في القهوة المختصة والشاي."
+  }
+]
