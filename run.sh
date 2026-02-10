@@ -2,12 +2,14 @@
 set -e
 cd "$(dirname "$0")"
 
-# Pull latest changes (optional)
-git pull --rebase || true
+# Optional: auto pull only if AUTO_PULL=1
+if [ "$AUTO_PULL" = "1" ]; then
+  git pull --rebase || true
+fi
 
 source venv/bin/activate
 set -a
 [ -f .env ] && source .env
 set +a
 
-python bot.py
+python3 bot.py
