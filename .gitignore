@@ -1,7 +1,72 @@
-venv/
-__pycache__/
+# =========================
+# 🔐 SECURITY / SECRETS
+# =========================
 .env
-*.log
-actions-runner/
-*.save
+.env.*
+*.pem
+*.key
+*.pub
+id_ed25519
+id_rsa
+*.p12
+*.crt
 
+# =========================
+# 🐍 PYTHON
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# =========================
+# 🧠 LOGS
+# =========================
+logs/
+*.log
+*.out
+*.err
+unanswered.txt
+
+# =========================
+# 💻 macOS
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =========================
+# 🧪 TEST / BACKUP FILES
+# =========================
+*.save
+*.bak
+*.tmp
+*.swp
+
+# =========================
+# 📦 IDE / EDITOR
+# =========================
+.vscode/
+.idea/
+*.code-workspace
+
+# =========================
+# 🚀 OLLAMA CACHE
+# =========================
+.ollama/
+ollama_models/
+
+# =========================
+# 🔄 Git internal mistakes
+# =========================
+*.orig
