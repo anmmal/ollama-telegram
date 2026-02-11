@@ -1,0 +1,20 @@
+name: Deploy (Self-hosted)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        shell: bash
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          chmod +x run.sh
+          ./run.sh
