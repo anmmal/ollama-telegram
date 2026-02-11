@@ -1,4 +1,4 @@
-name: Deploy (self-hosted)
+name: Deploy (Self-hosted)
 
 on:
   push:
@@ -7,15 +7,24 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    steps:
-      - name: Pull latest
-        shell: bash
-        run: |
-          cd ~/ollama-telegram
-          git fetch --all
-          git reset --hard origin/main
 
-      - name: Restart LaunchAgent
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update venv deps (optional)
         shell: bash
         run: |
-          launchctl kickstart -k gui/$(id -u)/com.ark.ollama-telegram || true
+          cd "$GITHUB_WORKSPACE"
+          if [ -d "venv" ]; then
+            source venv/bin/activate
+            [ -f requirements.txt ] && pip install -r requirements.txt
+          fi
+
+      - name: Restart bot (LaunchAgent)
+        shell: bash
+        run: |
+          UID=$(id -u)
+          launchctl kickstart -k gui/$UID/com.ark.ollama-telegram || true
+          sleep 2
+          pgrep -af "python.*bot.py" || true
