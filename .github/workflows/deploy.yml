@@ -1,4 +1,4 @@
-name: Deploy (Self-hosted)
+name: Deploy (self-hosted)
 
 on:
   push:
@@ -7,14 +7,15 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Deploy
+      - name: Pull latest
         shell: bash
         run: |
-          cd "$GITHUB_WORKSPACE"
-          chmod +x run.sh
-          ./run.sh
+          cd ~/ollama-telegram
+          git fetch --all
+          git reset --hard origin/main
+
+      - name: Restart LaunchAgent
+        shell: bash
+        run: |
+          launchctl kickstart -k gui/$(id -u)/com.ark.ollama-telegram || true
