@@ -70,3 +70,9 @@ ollama_models/
 # 🔄 Git internal mistakes
 # =========================
 *.orig
+
+# =========================
+# 🤖 GITHUB ACTIONS RUNNER
+# =========================
+actions-runner/
+
