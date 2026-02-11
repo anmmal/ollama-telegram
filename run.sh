@@ -4,9 +4,5 @@ cd "$(dirname "$0")"
 
 git pull --rebase || true
 
-source venv/bin/activate
-set -a
-[ -f .env ] && source .env
-set +a
-
-echo "Deploy ok (no bot start here)"
+# Restart LaunchAgent instead of running bot directly
+launchctl kickstart -k gui/$(id -u)/com.ark.ollama-telegram || true
